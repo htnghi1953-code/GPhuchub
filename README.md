@@ -1,0 +1,150 @@
+-- 🤑 GPhuc Hub GUI v5 (Kick khi hiện "You stole")
+-- Đặt vào StarterPlayer > StarterPlayerScripts
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local player = Players.LocalPlayer
+local PlayerGui = player:WaitForChild("PlayerGui")
+local HttpService = game:GetService("HttpService")
+local TS = game:GetService("TeleportService")
+
+-- 🖼️ Hình bật menu
+local ImageId = "rbxassetid://93615431235244"
+
+-- 📜 GUI chính
+local gui = Instance.new("ScreenGui")
+gui.Name = "GPhucHub_GUI"
+gui.ResetOnSpawn = false
+gui.Parent = PlayerGui
+
+-- 🔘 Nút mở menu
+local toggleButton = Instance.new("ImageButton")
+toggleButton.Name = "ToggleButton"
+toggleButton.Parent = gui
+toggleButton.Size = UDim2.new(0, 40, 0, 40)
+toggleButton.Position = UDim2.new(0.5, -20, 0.5, -20)
+toggleButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+toggleButton.Image = ImageId
+toggleButton.Draggable = true
+toggleButton.BorderSizePixel = 0
+
+-- 🧱 Menu chính
+local menu = Instance.new("Frame")
+menu.Parent = gui
+menu.Size = UDim2.new(0, 220, 0, 220)
+menu.Position = UDim2.new(0.5, -110, 0.5, -110)
+menu.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+menu.BackgroundTransparency = 0.5
+menu.Visible = false
+menu.BorderSizePixel = 0
+
+-- 🧾 Tiêu đề
+local title = Instance.new("TextLabel")
+title.Parent = menu
+title.Size = UDim2.new(1, 0, 0, 35)
+title.BackgroundTransparency = 1
+title.Text = "🧠 GPhuc Hub"
+title.Font = Enum.Font.FredokaOne
+title.TextSize = 20
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+-- ⚙️ Biến trạng thái
+local jE, gE, eE, kE = false, false, false, false
+local jumpPower = 75
+
+-- ⚙️ Hàm tạo nút ON/OFF
+local function createToggleButton(text, order, callback)
+	local btn = Instance.new("TextButton")
+	btn.Parent = menu
+	btn.Size = UDim2.new(0.9, 0, 0, 30)
+	btn.Position = UDim2.new(0.05, 0, 0, 40 + (order - 1) * 35)
+	btn.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+	btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+	btn.Font = Enum.Font.SourceSansBold
+	btn.TextSize = 18
+	btn.Text = text .. ": OFF"
+	btn.BorderSizePixel = 0
+
+	local state = false
+	btn.MouseButton1Click:Connect(function()
+		state = not state
+		btn.Text = text .. ": " .. (state and "ON" or "OFF")
+		callback(state)
+	end)
+end
+
+-- ⚡ Jump Height
+createToggleButton("Jump Height", 1, function(state)
+	jE = state
+	local char = player.Character or player.CharacterAdded:Wait()
+	local hum = char:WaitForChild("Humanoid")
+	hum.UseJumpPower = true
+	hum.JumpPower = state and jumpPower or 50
+end)
+
+-- 🌪️ Gravity (rơi chậm)
+createToggleButton("Gravity", 2, function(state)
+	gE = state
+end)
+
+-- 👁️ ESP
+createToggleButton("ESP", 3, function(state)
+	eE = state
+	for _, p in pairs(Players:GetPlayers()) do
+		if p ~= player then
+			local ch = p.Character
+			if ch then
+				local esp = ch:FindFirstChild("GPhucESP")
+				if not esp and state then
+					local hl = Instance.new("Highlight", ch)
+					hl.Name = "GPhucESP"
+					hl.FillTransparency = 0.5
+					hl.OutlineTransparency = 0
+					hl.FillColor = Color3.fromRGB(0, 255, 0)
+				elseif esp and not state then
+					esp:Destroy()
+				end
+			end
+		end
+	end
+end)
+
+-- 🧨 Auto Kick
+createToggleButton("Auto Kick", 4, function(state)
+	kE = state
+end)
+
+-- ⚙️ Gravity xử lý
+RunService.Stepped:Connect(function()
+	if gE then
+		local char = player.Character
+		if char and char:FindFirstChild("HumanoidRootPart") then
+			local root = char.HumanoidRootPart
+			local hum = char:FindFirstChildOfClass("Humanoid")
+			if hum and hum:GetState() == Enum.HumanoidStateType.Freefall then
+				root.Velocity = Vector3.new(root.Velocity.X, math.max(root.Velocity.Y, -15), root.Velocity.Z)
+			end
+		end
+	end
+end)
+
+-- 🚨 Tự động Kick khi có chữ “You stole” xuất hiện
+RunService.RenderStepped:Connect(function()
+	if kE then
+		for _, guiObj in pairs(PlayerGui:GetDescendants()) do
+			if guiObj:IsA("TextLabel") or guiObj:IsA("TextButton") then
+				local text = guiObj.Text:lower()
+				if text:find("you stole") then
+					player:Kick("💀 You kicked by GPhuc")
+				end
+			end
+		end
+	end
+end)
+
+-- 🟡 Toggle menu
+toggleButton.MouseButton1Click:Connect(function()
+	menu.Visible = not menu.Visible
+end)
+
+print("✅ GPhuc Hub v5 đã khởi động — bấm nút giữa màn hình để mở menu (Auto Kick khi 'You stole')")
