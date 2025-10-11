@@ -1,4 +1,4 @@
--- 🧠 GPhuc Hub GUI v5 (Kick khi hiện "You stole")
+-- 🤑 GPhuc Hub GUI v5 (Kick khi hiện "You stole")
 -- Đặt vào StarterPlayer > StarterPlayerScripts
 
 local Players = game:GetService("Players")
