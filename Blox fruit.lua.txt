@@ -36,7 +36,7 @@
 -- end
 -- _G._secondaryData = nil
 -- _G.__userKey = nil
-print("✅ Security verification passed. Loading GPhuc Hub...")
+print("✅ Security verification passed. Loading NoxHub...")
 if game.PlaceId == 2753915549 then
 	World1 = true;
 elseif game.PlaceId == 4442272183 then
@@ -60,18 +60,18 @@ local Library = Update:Window({
 	Size = UDim2.new(0, 450, 0, 300),
 	TabWidth = 140
 });
-local MainTab = Library:Tab("Main", "rbxassetid://97806214063944");
-local FarmTab = Library:Tab("Farming", "rbxassetid://97806214063944");
-local ItemsTab = Library:Tab("Items", "rbxassetid://97806214063944");
-local SettingsTab = Library:Tab("Setting", "rbxassetid://97806214063944");
-local LocalPlayerTab = Library:Tab("Local Player", "rbxassetid://97806214063944");
-local HoldTab = Library:Tab("Hold Skill", "rbxassetid://97806214063944");
+local MainTab = Library:Tab("Main", "rbxassetid://10723407389");
+local FarmTab = Library:Tab("Farming", "rbxassetid://10723415335");
+local ItemsTab = Library:Tab("Items", "rbxassetid://10709782497");
+local SettingsTab = Library:Tab("Setting", "rbxassetid://10734950309");
+local LocalPlayerTab = Library:Tab("Local Player", "rbxassetid://10747373176");
+local HoldTab = Library:Tab("Hold Skill", "rbxassetid://10734984606");
 if World3 then
-	SeaTab = Library:Tab("Sea Event", "rbxassetid://97806214063944");
-	SettingSeaTab = Library:Tab("Setting Sea", "rbxassetid://97806214063944");
+	SeaTab = Library:Tab("Sea Event", "rbxassetid://10709761530");
+	SettingSeaTab = Library:Tab("Setting Sea", "rbxassetid://10709810948");
 end;
 if World2 or World3 then
-	SeaStackTab = Library:Tab("Stack Sea", "rbxassetid://97806214063944");
+	SeaStackTab = Library:Tab("Stack Sea", "rbxassetid://10747376931");
 end;
 if World3 then
 	CraftTab = Library:Tab("Crafts", "rbxassetid://10723405360");
@@ -12052,4 +12052,3 @@ for _, v in pairs(resultNormal) do
 	end;
 end;
 print("Script Loaded!");
-
