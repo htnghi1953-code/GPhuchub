@@ -2017,7 +2017,7 @@
 	local toggleButton = Instance.new("ImageButton")
 	toggleButton.Size = UDim2.new(0, 50, 0, 50)
 	toggleButton.Position = UDim2.new(0.15, 0, 0.15, 0)
-	toggleButton.Image = "rbxassetid://97806214063944"
+	toggleButton.Image = "rbxassetid://86749587185394"
 	toggleButton.ScaleType = Enum.ScaleType.Fit
 	toggleButton.BackgroundTransparency = 1
 	toggleButton.Parent = screenGui
@@ -2118,16 +2118,16 @@
 	}
 
 	Tabs.tiktok:AddButton({
-		Title = "Link tiktok nha các anh em",
-		Description = "Đây nha anh em ( Copy rồi dán vào google)",
+		Title = "Link discord nha",
+		Description = "Đây nha anh em ( Copy rồi dán vào discord)",
 		Callback = function()
-			setclipboard(tostring("https://www.tiktok.com/@nguyenphuocthinh281989"))
+			setclipboard(tostring("https://discord.gg/swbb3AFZ"))
 		end
 	})
 	local ReplicatedStorage = game:GetService("ReplicatedStorage")
 	local Players = game:GetService("Players")
 	if World3 then
-		Tabs.Main:AddSection("thinh limeted mua nhé")
+		Tabs.Main:AddSection("Main")
 		local TeleportToggle = Tabs.Main:AddToggle("tpSubmarineWorker", {
 			Title = "Bay đến NPC Farm Level Trên 2600",
 			Description = "Teleport to Submarine Worker (Level >= 2600, World 3 only)",
@@ -4589,7 +4589,7 @@
 
 	local Initialize = Tabs.Settings:AddToggle("Initialize", {
 		Title = "un ban đánh quái không được",
-		Description = "un ban thinh-hoang premium",
+		Description = "un ban ",
 		Default = true
 	})
 	Initialize:OnChanged(function(Value)
